@@ -15,7 +15,6 @@ import { Route as DemoTanstackQueryRouteImport } from './routes/demo/tanstack-qu
 import { Route as DemoPrismaRouteImport } from './routes/demo/prisma'
 import { Route as DemoStartServerFuncsRouteImport } from './routes/demo/start.server-funcs'
 import { Route as DemoStartApiRequestRouteImport } from './routes/demo/start.api-request'
-import { Route as DemoSentryTestingRouteImport } from './routes/demo/sentry.testing'
 import { Route as DemoApiTqTodosRouteImport } from './routes/demo/api.tq-todos'
 import { Route as DemoApiNamesRouteImport } from './routes/demo/api.names'
 import { Route as ApiTrpcSplatRouteImport } from './routes/api.trpc.$'
@@ -52,11 +51,6 @@ const DemoStartServerFuncsRoute = DemoStartServerFuncsRouteImport.update({
 const DemoStartApiRequestRoute = DemoStartApiRequestRouteImport.update({
   id: '/demo/start/api-request',
   path: '/demo/start/api-request',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const DemoSentryTestingRoute = DemoSentryTestingRouteImport.update({
-  id: '/demo/sentry/testing',
-  path: '/demo/sentry/testing',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DemoApiTqTodosRoute = DemoApiTqTodosRouteImport.update({
@@ -103,7 +97,6 @@ export interface FileRoutesByFullPath {
   '/api/trpc/$': typeof ApiTrpcSplatRoute
   '/demo/api/names': typeof DemoApiNamesRoute
   '/demo/api/tq-todos': typeof DemoApiTqTodosRoute
-  '/demo/sentry/testing': typeof DemoSentryTestingRoute
   '/demo/start/api-request': typeof DemoStartApiRequestRoute
   '/demo/start/server-funcs': typeof DemoStartServerFuncsRoute
   '/demo/start/ssr/data-only': typeof DemoStartSsrDataOnlyRoute
@@ -119,7 +112,6 @@ export interface FileRoutesByTo {
   '/api/trpc/$': typeof ApiTrpcSplatRoute
   '/demo/api/names': typeof DemoApiNamesRoute
   '/demo/api/tq-todos': typeof DemoApiTqTodosRoute
-  '/demo/sentry/testing': typeof DemoSentryTestingRoute
   '/demo/start/api-request': typeof DemoStartApiRequestRoute
   '/demo/start/server-funcs': typeof DemoStartServerFuncsRoute
   '/demo/start/ssr/data-only': typeof DemoStartSsrDataOnlyRoute
@@ -136,7 +128,6 @@ export interface FileRoutesById {
   '/api/trpc/$': typeof ApiTrpcSplatRoute
   '/demo/api/names': typeof DemoApiNamesRoute
   '/demo/api/tq-todos': typeof DemoApiTqTodosRoute
-  '/demo/sentry/testing': typeof DemoSentryTestingRoute
   '/demo/start/api-request': typeof DemoStartApiRequestRoute
   '/demo/start/server-funcs': typeof DemoStartServerFuncsRoute
   '/demo/start/ssr/data-only': typeof DemoStartSsrDataOnlyRoute
@@ -154,7 +145,6 @@ export interface FileRouteTypes {
     | '/api/trpc/$'
     | '/demo/api/names'
     | '/demo/api/tq-todos'
-    | '/demo/sentry/testing'
     | '/demo/start/api-request'
     | '/demo/start/server-funcs'
     | '/demo/start/ssr/data-only'
@@ -170,7 +160,6 @@ export interface FileRouteTypes {
     | '/api/trpc/$'
     | '/demo/api/names'
     | '/demo/api/tq-todos'
-    | '/demo/sentry/testing'
     | '/demo/start/api-request'
     | '/demo/start/server-funcs'
     | '/demo/start/ssr/data-only'
@@ -186,7 +175,6 @@ export interface FileRouteTypes {
     | '/api/trpc/$'
     | '/demo/api/names'
     | '/demo/api/tq-todos'
-    | '/demo/sentry/testing'
     | '/demo/start/api-request'
     | '/demo/start/server-funcs'
     | '/demo/start/ssr/data-only'
@@ -203,7 +191,6 @@ export interface RootRouteChildren {
   ApiTrpcSplatRoute: typeof ApiTrpcSplatRoute
   DemoApiNamesRoute: typeof DemoApiNamesRoute
   DemoApiTqTodosRoute: typeof DemoApiTqTodosRoute
-  DemoSentryTestingRoute: typeof DemoSentryTestingRoute
   DemoStartApiRequestRoute: typeof DemoStartApiRequestRoute
   DemoStartServerFuncsRoute: typeof DemoStartServerFuncsRoute
   DemoStartSsrDataOnlyRoute: typeof DemoStartSsrDataOnlyRoute
@@ -254,13 +241,6 @@ declare module '@tanstack/react-router' {
       path: '/demo/start/api-request'
       fullPath: '/demo/start/api-request'
       preLoaderRoute: typeof DemoStartApiRequestRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/demo/sentry/testing': {
-      id: '/demo/sentry/testing'
-      path: '/demo/sentry/testing'
-      fullPath: '/demo/sentry/testing'
-      preLoaderRoute: typeof DemoSentryTestingRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/demo/api/tq-todos': {
@@ -323,7 +303,6 @@ const rootRouteChildren: RootRouteChildren = {
   ApiTrpcSplatRoute: ApiTrpcSplatRoute,
   DemoApiNamesRoute: DemoApiNamesRoute,
   DemoApiTqTodosRoute: DemoApiTqTodosRoute,
-  DemoSentryTestingRoute: DemoSentryTestingRoute,
   DemoStartApiRequestRoute: DemoStartApiRequestRoute,
   DemoStartServerFuncsRoute: DemoStartServerFuncsRoute,
   DemoStartSsrDataOnlyRoute: DemoStartSsrDataOnlyRoute,

@@ -16,7 +16,6 @@
     "biome",
     "nitro",
     "start",
-    "sentry",
     "prisma",
     "tRPC",
     "tanstack-query"

@@ -1,13 +1,9 @@
-import { publicProcedure as baseProcedure, createTRPCRouter } from "./init";
+import { baseProcedure, createTRPCRouter } from "./init";
 
-import { prisma } from "@/db";
+import { prisma } from "@/lib/db";
 import type { TRPCRouterRecord } from "@trpc/server";
 
-const todosRouter = {
-  getTodos: baseProcedure.query(() => {
-    return prisma.todo.findMany();
-  }),
-} satisfies TRPCRouterRecord;
+const todosRouter = {} satisfies TRPCRouterRecord;
 
 export const trpcRouter = createTRPCRouter({
   todos: todosRouter,

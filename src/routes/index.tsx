@@ -1,35 +1,17 @@
-import { todosQueryOptions } from "@/server/todos";
-import { useSuspenseQuery } from "@tanstack/react-query";
+import { authMiddleware } from "@/middleware/auth";
 import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/")({
-  loader: ({ context }) => {
-    // 'ensureQueryData' checks the cache. If empty, it fetches (Server Function).
-    // It returns a Promise that resolves with the data.
-    return context.queryClient.ensureQueryData(todosQueryOptions);
-  },
   component: App,
+  server: {
+    middleware: [authMiddleware],
+  },
 });
 
 function App() {
-  const { queryClient } = Route.useRouteContext();
-  const { data: todos } = useSuspenseQuery(todosQueryOptions);
-
   return (
-    <div>
-      <h1>Hydrated Todos</h1>
-      <ul>
-        {todos.map((todo) => (
-          <li key={todo.id}>{todo.title}</li>
-        ))}
-      </ul>
-      <button
-        onClick={() => {
-          queryClient.invalidateQueries({ queryKey: ["todos"] });
-        }}
-      >
-        Refresh
-      </button>
+    <div className="min-h-screen min-w-screen flex items-center justify-center flex-col gap-4">
+      <h1 className="text-2xl font-bold">NodeBase App</h1>
     </div>
   );
 }

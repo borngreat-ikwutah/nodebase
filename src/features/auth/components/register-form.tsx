@@ -15,7 +15,7 @@ import { Field, FieldError, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { authClient } from "@/lib/auth-client";
 import { cn } from "@/lib/utils";
-import { Link, useNavigate } from "@tanstack/react-router";
+import { Link, useNavigate, useRouter } from "@tanstack/react-router";
 import { Eye, EyeOff } from "lucide-react";
 import { useState } from "react";
 
@@ -36,6 +36,7 @@ type RegisterFormType = z.infer<typeof registerSchema>;
 
 export const RegisterForm = () => {
   const navigate = useNavigate();
+  const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
   const form = useForm<RegisterFormType>({
     resolver: zodResolver(registerSchema),
@@ -60,9 +61,10 @@ export const RegisterForm = () => {
         callbackURL: "/",
       },
       {
-        onSuccess: () => {
+        onSuccess: async () => {
+          await router.invalidate();
           toast.success("Account created successfully");
-          navigate({
+          await navigate({
             to: "/",
           });
         },

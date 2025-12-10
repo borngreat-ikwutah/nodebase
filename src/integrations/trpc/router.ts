@@ -3,9 +3,13 @@ import { baseProcedure, createTRPCRouter } from "./init";
 import { prisma } from "@/lib/db";
 import type { TRPCRouterRecord } from "@trpc/server";
 
-const todosRouter = {} satisfies TRPCRouterRecord;
+const userRouter = {
+  getAllUsers: baseProcedure.query(async ({ ctx }) => {
+    return prisma.user.findMany();
+  }),
+} satisfies TRPCRouterRecord;
 
 export const trpcRouter = createTRPCRouter({
-  todos: todosRouter,
+  users: userRouter,
 });
 export type TRPCRouter = typeof trpcRouter;

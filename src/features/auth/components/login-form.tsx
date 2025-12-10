@@ -1,8 +1,8 @@
+import { Button } from "@/components/ui/button";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Controller, useForm } from "react-hook-form";
 import { toast } from "sonner";
 import z from "zod";
-import { Button } from "@/components/ui/button";
 
 import {
   Card,
@@ -11,13 +11,13 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { cn } from "@/lib/utils";
-import { useRouter } from "@tanstack/react-router";
 import { Field, FieldError, FieldLabel } from "@/components/ui/field";
-import { useState } from "react";
+import { Input } from "@/components/ui/input";
+import { authClient } from "@/lib/auth-client";
+import { cn } from "@/lib/utils";
+import { Link, useNavigate, useRouter } from "@tanstack/react-router";
 import { Eye, EyeOff } from "lucide-react";
-import { Link } from "@tanstack/react-router";
+import { useState } from "react";
 
 const loginFormSchema = z.object({
   email: z.email("Invalid email address"),
@@ -27,6 +27,7 @@ const loginFormSchema = z.object({
 type LoginFormValues = z.infer<typeof loginFormSchema>;
 
 export const LoginForm = () => {
+  const navigate = useNavigate();
   const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
   const form = useForm<LoginFormValues>({
@@ -38,7 +39,24 @@ export const LoginForm = () => {
   });
 
   const onSubmit = async (values: LoginFormValues) => {
-    console.log(values);
+    return await authClient.signIn.email(
+      {
+        email: values.email,
+        password: values.password,
+        callbackURL: "/",
+      },
+      {
+        onSuccess: async () => {
+          await router.invalidate();
+
+          toast.success("Logged in successfully");
+          await navigate({ to: "/" });
+        },
+        onError: (ctx) => {
+          toast.error(ctx.error.message || "Failed to login");
+        },
+      },
+    );
   };
 
   const isPending = form.formState.isSubmitting;

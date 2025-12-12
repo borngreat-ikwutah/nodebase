@@ -18,6 +18,8 @@ import { cn } from "@/lib/utils";
 import { Link, useNavigate, useRouter } from "@tanstack/react-router";
 import { Eye, EyeOff } from "lucide-react";
 import { useState } from "react";
+import { is } from "zod/v4/locales";
+import { Spinner } from "@/components/ui/spinner";
 
 const registerSchema = z
   .object({
@@ -245,7 +247,14 @@ export const RegisterForm = () => {
                 disabled={isPending}
                 className="w-full"
               >
-                Create An Account
+                {isPending ? (
+                  <>
+                    <Spinner className="mr-2 h-4 w-4" />
+                    Creating Account...
+                  </>
+                ) : (
+                  "Create Account"
+                )}
               </Button>
             </Field>
 

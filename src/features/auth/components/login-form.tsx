@@ -13,11 +13,14 @@ import {
 } from "@/components/ui/card";
 import { Field, FieldError, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
+// 👇 Import the Spinner
+import { Spinner } from "@/components/ui/spinner";
 import { authClient } from "@/lib/auth-client";
 import { cn } from "@/lib/utils";
 import { Link, useNavigate, useRouter } from "@tanstack/react-router";
 import { Eye, EyeOff } from "lucide-react";
 import { useState } from "react";
+import { toastSuccess } from "@/lib/toast";
 
 const loginFormSchema = z.object({
   email: z.email("Invalid email address"),
@@ -48,8 +51,7 @@ export const LoginForm = () => {
       {
         onSuccess: async () => {
           await router.invalidate();
-
-          toast.success("Logged in successfully");
+          toastSuccess("Logged in successfully");
           await navigate({ to: "/" });
         },
         onError: (ctx) => {
@@ -123,6 +125,7 @@ export const LoginForm = () => {
                       aria-invalid={fieldState.invalid}
                       placeholder="Enter Your Email"
                       autoComplete="on"
+                      className="border border-gray-100"
                     />
                     {fieldState.invalid && (
                       <FieldError errors={[fieldState.error]} />
@@ -147,6 +150,7 @@ export const LoginForm = () => {
                         disabled={isPending}
                         className={cn(
                           "pr-10",
+                          "border border-gray-100",
                           fieldState.invalid &&
                             "border-destructive focus-visible:ring-destructive",
                         )}
@@ -176,14 +180,23 @@ export const LoginForm = () => {
                 )}
               />
             </div>
+
             <Field orientation="vertical">
+              {/* 👇 Updated Login Button with Spinner */}
               <Button
                 type="submit"
                 form="login-form"
                 disabled={isPending}
                 className="w-full"
               >
-                Login
+                {isPending ? (
+                  <>
+                    <Spinner className="mr-2 h-4 w-4 animate-spin" />
+                    Logging in...
+                  </>
+                ) : (
+                  "Login"
+                )}
               </Button>
             </Field>
 

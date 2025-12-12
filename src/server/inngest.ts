@@ -2,10 +2,7 @@ import { createCaller } from "@/integrations/trpc/router";
 import { createServerFn } from "@tanstack/react-start";
 import { getRequest } from "@tanstack/react-start/server";
 
-// 1. Create the caller generator once (outside the handler)
-
-export const getUsersFn = createServerFn().handler(async () => {
-  // 2. Get the standard Request object
+export const getWorkflows = createServerFn().handler(async () => {
   const request = getRequest();
 
   const ctx = {
@@ -14,9 +11,7 @@ export const getUsersFn = createServerFn().handler(async () => {
 
   // 4. Create the caller with that context
   const caller = createCaller(ctx);
+  const workflows = await caller.workflows.getWorkflows();
 
-  // 5. Call your procedure directly
-  const users = await caller.users.getAllUsers();
-
-  return users;
+  return workflows;
 });

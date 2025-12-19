@@ -38,7 +38,7 @@ function App() {
     <div className="min-h-screen min-w-screen flex items-center justify-center flex-col gap-4">
       <h1 className="text-2xl font-bold">NodeBase App</h1>
 
-      <pre>{JSON.stringify(workflows, null, 2)}</pre>
+      <pre>{JSON.stringify(workflows.data, null, 2)}</pre>
 
       <Button
         onClick={() => {

@@ -1,0 +1,7 @@
+procs:
+  inngest:
+    cmd: ["npx", "--ignore-scripts=false", "inngest-cli@latest", "dev"]
+    cwd: "."
+
+  vite:
+    cmd: ["bun", "run", "dev"]
